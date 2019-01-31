@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zenodo-postgres
+  labels: 
+    app: zenodo
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: zenodo
+    tier: postgres
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: StatefulSets
+metadata:
+  name: zenodo-postgres
+  labels:
+    app: zenodo
+spec:
+  selector:
+    matchLabels:
+      app: zenodo
+      tier: postgres
+  template:
+    metadata:
+      labels:
+        app: zenodo
+        tier: postgres
+    spec:
+      volumes:
+        - name: db-pv-storage
+          persistentVolumeClaim:
+          claimName: zenodo-postgres-pv-claim
+      containers:
+      - name: postgres
+        image: postgres
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_PASSWORD
+            value: xxx
+          - name: POSTGRES_USER
+            value: xxx
+        volumeMounts:
+        - name: db-pv-storage
+          mountPath: /var/lib/postgresql

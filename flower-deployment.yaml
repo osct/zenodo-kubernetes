@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zenodo-flower
+  labels:
+    app: zenodo
+spec:
+  ports:
+    - port: 5555
+  selector:
+    app: zenodo
+    tier: flower
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zenodo-flower
+  labels:
+    app: zenodo
+spec:
+  selector:
+    matchLabels:
+      app: zenodo
+      tier: flower
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: zenodo
+        tier: flower
+    spec:
+      containers:
+      - name: flower
+        image: mher/flower
+        ports:
+        - containerPort: 5555

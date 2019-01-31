@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zenodo-kibana
+  labels:
+    app: zenodo
+spec:
+  ports:
+    - port: 5601
+  selector:
+    app: zenodo
+    tier: kibana
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zenodo-kibana
+  labels:
+    app: zenodo
+spec:
+  selector:
+    matchLabels:
+      app: zenodo
+      tier: kibana
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: zenodo
+        tier: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: kibana:4.3
+        ports:
+        - containerPort: 5601
+        env:
+        - name: ELASTICSEARCH_URL
+          value: "http://zenodo-es:9200"
+        command: ["/bin/sh"]
+        args: ["-c", "gosu kibana kibana plugin --install elastic/sense; kibana"]

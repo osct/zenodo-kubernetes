@@ -1,0 +1,67 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: zenodo-postgres-pv-volume
+  labels:
+    type: nfs
+spec:
+  storageClassName: remote
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /var/nfsshare/db
+    server: 10.250.27.253
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: zenodo-postgres-pv-claim
+  labels:
+    type: db-storage
+spec:
+  storageClassName: remote
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: zenodo-assets-pv-volume
+  labels:
+    type: nfs
+spec:
+  storageClassName: remote
+  capacity:
+    storage: 800Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /var/nfsshare/assets
+    server: 10.250.27.253
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: zenodo-assets-pv-claim
+  labels:
+    type: assets-storage
+spec:
+  storageClassName: remote
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 800G

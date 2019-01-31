@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zenodo-worker
+  labels:
+    app: zenodo
+spec:
+  ports:
+    - port: 5601
+  selector:
+    app: zenodo
+    tier: worker
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zenodo-worker
+  labels:
+    app: zenodo
+spec:
+  selector:
+    matchLabels:
+      app: zenodo
+      tier: worker
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: zenodo
+        tier: worker
+    spec:
+      containers:
+      - name: worker
+        image: infnct/zenodo
+        ports:
+        - containerPort: 5601
+        envfrom:
+        - configMapRef: 
+          name: zenodo-config
+        command: ["/bin/sh"]
+        args: ["-c", "celery worker -A zenodo.celery --loglevel=INFO"]

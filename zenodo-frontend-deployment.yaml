@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zenodo-frontend
+  labels:
+    app: zenodo
+spec:
+  ports:
+    - port: 5601
+  selector:
+    app: zenodo
+    tier: frontend
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zenodo-frontend
+  labels:
+    app: zenodo
+spec:
+  selector:
+    matchLabels:
+      app: zenodo
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: zenodo
+        tier: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: infnct/zenodo
+        ports:
+        - containerPort: 5601
+        envfrom:
+        - configMapRef: 
+          name: zenodo-config

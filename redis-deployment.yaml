@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zenodo-redis
+  labels:
+    app: zenodo
+spec:
+  ports:
+    - port: 6379
+  selector:
+    app: zenodo
+    tier: redis
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zenodo-redis
+  labels:
+    app: zenodo
+spec:
+  selector:
+    matchLabels:
+      app: zenodo
+      tier: redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: zenodo
+        tier: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        ports:
+        - containerPort: 6379
+        args: ["--broker=amqp://xxx:xxx@zenodo-mq:5672//", "--broker_api=http://xxx:xxx@zenodo-mq:15672/api/"]
