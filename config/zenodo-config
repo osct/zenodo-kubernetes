@@ -1,9 +1,14 @@
-INVENIO_ACCOUNTS_SESSION_REDIS_URL redis://zenodo-redis:6379/1
-INVENIO_BROKER_URL amqp://xxx:xxx@zenodo-mq:5672//
-INVENIO_CACHE_REDIS_URL redis://zenodo-redis:6379/0
-INVENIO_CACHE_TYPE=redis
-INVENIO_CELERY_RESULT_BACKEND redis://zenodo-redis:6379/2
-INVENIO_SEARCH_ELASTIC_HOSTS ['zenodo-es:9200']
-INVENIO_SECRET_KEY BLABLA123
-INVENIO_SESSION_COOKIE_SECURE True
-INVENIO_SQLALCHEMY_DATABASE_URI postgresql://xxx:xxx@zenodo-postgres/zenodo
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zenodo-config
+data:
+  INVENIO_ACCOUNTS_SESSION_REDIS_URL: redis://zenodo-redis:6379/1
+  INVENIO_BROKER_URL: amqp://xxx:xxx@zenodo-mq:5672//
+  INVENIO_CACHE_REDIS_URL: redis://zenodo-redis:6379/0
+  INVENIO_CACHE_TYPE: redis
+  INVENIO_CELERY_RESULT_BACKEND: redis://zenodo-redis:6379/2
+  INVENIO_SEARCH_ELASTIC_HOSTS: ['zenodo-es:9200']
+  INVENIO_SECRET_KEY: BLABLA123
+  INVENIO_SESSION_COOKIE_SECURE: True
+  INVENIO_SQLALCHEMY_DATABASE_URI: postgresql://xxx:xxx@zenodo-postgres/zenodo
