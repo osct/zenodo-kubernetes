@@ -36,8 +36,8 @@ spec:
         image: infnct/zenodo
         ports:
         - containerPort: 5601
-        envfrom:
+        envFrom:
         - configMapRef: 
-          name: zenodo-config
+            name: zenodo-config
         command: ["/bin/sh"]
-        args: ["-c", "celery worker -A zenodo.celery --loglevel=INFO"]
+        args: ["-c", "source /opt/zenodo_venv/bin/activate; celery worker -A zenodo.celery --loglevel=INFO"]

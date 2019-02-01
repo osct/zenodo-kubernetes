@@ -13,7 +13,7 @@ spec:
   clusterIP: None
 ---
 apiVersion: apps/v1
-kind: StatefulSets
+kind: StatefulSet
 metadata:
   name: zenodo-postgres
   labels:
@@ -23,6 +23,7 @@ spec:
     matchLabels:
       app: zenodo
       tier: postgres
+  serviceName: zenodo-postgre
   template:
     metadata:
       labels:
@@ -32,7 +33,7 @@ spec:
       volumes:
         - name: db-pv-storage
           persistentVolumeClaim:
-          claimName: zenodo-postgres-pv-claim
+            claimName: zenodo-postgres-pv-claim
       containers:
       - name: postgres
         image: postgres

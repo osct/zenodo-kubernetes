@@ -7,7 +7,9 @@ metadata:
 spec:
   ports:
     - port: 15672
+      name: mq1
     - port: 5672
+      name: mq2
   selector:
     app: zenodo
     tier: mq
@@ -34,7 +36,7 @@ spec:
     spec:
       containers:
       - name: mq
-        image: rabbitmq:3-managment
+        image: rabbitmq:3-management
         ports:
         - containerPort: 15672
         - containerPort: 5672
