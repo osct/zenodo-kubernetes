@@ -34,10 +34,14 @@ spec:
       containers:
       - name: worker
         image: infnct/zenodo
+        volumeMounts:
+        - name: zenodo-config-file
+          mountPath: /opt/zenodo_venv/var/instance
         ports:
         - containerPort: 5601
-        envFrom:
-        - configMapRef: 
-            name: zenodo-config
         command: ["/bin/sh"]
         args: ["-c", "source /opt/zenodo_venv/bin/activate; celery worker -A zenodo.celery --loglevel=INFO"]
+      volumes:
+      - name: zenodo-config-file
+        configMap:
+          name: zenodo-config

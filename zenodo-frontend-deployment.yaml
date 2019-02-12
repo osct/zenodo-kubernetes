@@ -42,8 +42,17 @@ spec:
       containers:
       - name: frontend
         image: infnct/zenodo
+        volumeMounts:
+        - name: zenodo-config-file
+          mountPath: /opt/zenodo_venv/var/instance
+        - name: zenodo-httpd-cert-files
+          mountPath: /opt/httpd-config/certs
         ports:
         - containerPort: 5601
-        envFrom:
-        - configMapRef: 
-            name: zenodo-config
+      volumes:
+      - name: zenodo-config-file
+        configMap:
+          name: zenodo-config
+      - name: zenodo-httpd-cert-files
+        secret:
+          secretName: httpd-certs
