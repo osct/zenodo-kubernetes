@@ -44,7 +44,7 @@ spec:
         image: infnct/zenodo
         volumeMounts:
         - name: zenodo-config-file
-          mountPath: /opt/zenodo_venv/var/instance
+          mountPath: /opt/invenio-config
         - name: zenodo-httpd-cert-files
           mountPath: /opt/httpd-config/certs
         ports:
