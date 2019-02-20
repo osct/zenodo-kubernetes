@@ -40,10 +40,16 @@ spec:
         ports:
         - containerPort: 5432
         env:
-          - name: POSTGRES_PASSWORD
-            value: xxx
           - name: POSTGRES_USER
-            value: xxx
+            valueFrom:
+              secretKeyRef:
+                name: zenodo-secrets
+                key: username
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: zenodo-secrets
+                key: password
         volumeMounts:
         - name: db-pv-storage
-          mountPath: /var/lib/postgresql
+          mountPath: /var/lib/postgresql/data

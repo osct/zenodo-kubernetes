@@ -40,4 +40,4 @@ spec:
         - name: ELASTICSEARCH_URL
           value: "http://zenodo-es:9200"
         command: ["/bin/sh"]
-        args: ["-c", "gosu kibana kibana plugin --install elastic/sense; kibana"]
+        args: ["-c", "gosu kibana kibana plugin --install elastic/sense; gosu kibana kibana -e $ELASTICSEARCH_URL"]

@@ -5,14 +5,23 @@ metadata:
 data:
   invenio.cfg: |
     ACCOUNTS_SESSION_REDIS_URL = "redis://zenodo-redis:6379/2"
-    BROKER_URL = "amqp://guest:guest@zenodo-mq:5672//"
-    CELERY_BROKER_URL = "amqp://guest:guest@zenodo-mq:5672//"
-    CELERY_BROKER_URL = "amqp://guest:guest@zenodo-mq:5672//"
+    BROKER_URL = "amqp://USER:PASSWORD@zenodo-mq:5672//"
+    CELERY_BROKER_URL = "amqp://USER:PASSWORD@zenodo-mq:5672//"
+    QUEUES_BROKER_URL = "amqp://USER:PASSWORD@zenodo-mq:5672//"
     CACHE_REDIS_URL = "redis://zenodo-redis:6379/0"
     CACHE_TYPE = "redis"
     CELERY_RESULT_BACKEND = "redis://zenodo-redis:6379/1"
     SEARCH_ELASTIC_HOSTS = "[zenodo-es]"
-    SECRET_KEY = "V3ryDifficultP@ssw0rd"
+    SECRET_KEY = "PASSWORD"
     SESSION_COOKIE_SECURE = "True"
-    SQLALCHEMY_DATABASE_URI = "postgresql://zenodo:zenodo@zenodo-postgres/zenodo"
-    REDIS_URL = "postgresql://zenodo:zenodo@zenodo-postgres/zenodo"
+    SQLALCHEMY_DATABASE_URI = "postgresql://USER:PASSWORD@zenodo-postgres/zenodo"
+    REDIS_URL = "postgresql://USER:PASSWORD@zenodo-postgres/zenodo"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: zenodo-secrets
+type: Opaque
+stringData:
+  username: USER
+  password: PASSWORD
