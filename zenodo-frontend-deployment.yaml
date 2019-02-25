@@ -43,6 +43,10 @@ spec:
       - name: frontend
         image: infnct/zenodo
         volumeMounts:
+        - name: zenodo-archive-storage
+          mountPath: /opt/zenodo_venv/var/instance/archive
+        - name: zenodo-data-storage
+          mountPath: /opt/zenodo_venv/var/instance/data
         - name: zenodo-config-file
           mountPath: /opt/invenio-config
         - name: zenodo-httpd-cert-files
@@ -52,6 +56,12 @@ spec:
         ports:
         - containerPort: 5601
       volumes:
+      - name: zenodo-archive-storage
+        persistentVolumeClaim:
+          claimName: zenodo-archive-pv-claim
+      - name: zenodo-data-storage
+        persistentVolumeClaim:
+          claimName: zenodo-data-pv-claim
       - name: zenodo-config-file
         configMap:
           name: zenodo-config

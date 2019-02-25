@@ -35,7 +35,7 @@ spec:
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: zenodo-assets-pv-volume
+  name: zenodo-archive-pv-volume
   labels:
     type: nfs
 spec:
@@ -49,15 +49,49 @@ spec:
     - hard
     - nfsvers=4.1
   nfs:
-    path: /var/nfsshare/assets
+    path: /var/nfsshare/archive
     server: 10.250.27.253
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: zenodo-assets-pv-claim
+  name: zenodo-archive-pv-claim
   labels:
-    type: assets-storage
+    type: archive-storage
+spec:
+  storageClassName: remote
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 800G
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: zenodo-data-pv-volume
+  labels:
+    type: nfs
+spec:
+  storageClassName: remote
+  capacity:
+    storage: 800Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /var/nfsshare/data
+    server: 10.250.27.253
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: zenodo-data-pv-claim
+  labels:
+    type: data-storage
 spec:
   storageClassName: remote
   accessModes:
