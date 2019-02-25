@@ -36,4 +36,15 @@ spec:
         image: mher/flower
         ports:
         - containerPort: 5555
-        args: ["--broker=amqp://USER:PASSWORD@zenodo-mq:5672//", "--broker_api=http://USER:PASSWORD@zenodo-mq:15672/api/"]
+        env:
+          - name: BROKER
+            valueFrom:
+              secretKeyRef:
+                name: zenodo-secrets
+                key: flower_broker
+          - name: BROKER_API
+            valueFrom:
+              secretKeyRef:
+                name: zenodo-secrets
+                key: flower_broker_api
+        args: ["--broker=$BROKER", "--broker_api=$BROKER_API"]

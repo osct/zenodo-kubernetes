@@ -47,6 +47,8 @@ spec:
           mountPath: /opt/invenio-config
         - name: zenodo-httpd-cert-files
           mountPath: /opt/httpd-config/certs
+        - name: zenodo-shibboleth-config-files
+          mountPath: /opt/shibboleth-config
         ports:
         - containerPort: 5601
       volumes:
@@ -56,3 +58,6 @@ spec:
       - name: zenodo-httpd-cert-files
         secret:
           secretName: httpd-certs
+      - name: zenodo-shibboleth-config-files
+        secret:
+          secretName: shibboleth-conf
