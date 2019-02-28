@@ -35,6 +35,10 @@ spec:
       - name: worker
         image: infnct/zenodo
         volumeMounts:
+        - name: zenodo-archive-storage
+          mountPath: /opt/zenodo_venv/var/instance/archive
+        - name: zenodo-data-storage
+          mountPath: /opt/zenodo_venv/var/instance/data
         - name: zenodo-config-file
           mountPath: /opt/zenodo_venv/var/instance
         ports:
@@ -42,6 +46,12 @@ spec:
         command: ["/bin/sh"]
         args: ["-c", "source /opt/zenodo_venv/bin/activate; celery worker -A zenodo.celery --loglevel=INFO"]
       volumes:
+      - name: zenodo-archive-storage
+        persistentVolumeClaim:
+          claimName: zenodo-archive-pv-claim
+      - name: zenodo-data-storage
+        persistentVolumeClaim:
+          claimName: zenodo-data-pv-claim
       - name: zenodo-config-file
         configMap:
           name: zenodo-config
