@@ -23,6 +23,10 @@ data:
     ZENODO_COMMUNITIES_AUTO_REQUEST = ['infn']
     ZENODO_COMMUNITIES_REQUEST_IF_GRANTS = []
     ZENODO_COMMUNITIES_ADD_IF_GRANTS = []
+    ZENODO_FRONTPAGE_COMMUNITY = 'infn'
+    COMMUNITIES_NEW_TEMPLATE = 'zenodo_communities/new.html'
+    COMMUNITIES_EDIT_TEMPLATE = 'zenodo_communities/new.html'
+    COMMUNITIES_INDEX_TEMPLATE = 'zenodo_communities/index.html'
     #Theme configurations
     THEME_SITENAME = "INFN Open Access Repository"
     THEME_SITEURL = "https://master.k8s.infnct"
