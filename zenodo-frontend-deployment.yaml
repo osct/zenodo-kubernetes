@@ -53,6 +53,8 @@ spec:
           mountPath: /opt/httpd-config/certs
         - name: zenodo-shibboleth-config-files
           mountPath: /opt/shibboleth-config
+        - name: zenodo-html-files
+          mountPath: /var/www/html
         ports:
         - containerPort: 5601
       volumes:
@@ -62,6 +64,9 @@ spec:
       - name: zenodo-data-storage
         persistentVolumeClaim:
           claimName: zenodo-data-pv-claim
+      - name: zenodo-html-files
+        persistentVolumeClaim:
+          claimName: zenodo-html-pv-claim
       - name: zenodo-config-file
         configMap:
           name: zenodo-config
