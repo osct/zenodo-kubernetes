@@ -86,6 +86,40 @@ spec:
     path: /var/nfsshare/data
     server: 10.250.27.253
 ---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: zenodo-html-pv-volume
+  labels:
+    type: nfs
+spec:
+  storageClassName: remote
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /var/nfsshare/html
+    server: 10.250.27.253
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: zenodo-html-pv-claim
+  labels:
+    type: html-storage
+spec:
+  storageClassName: remote
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -98,4 +132,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 800G
+      storage: 800Gi
