@@ -32,6 +32,7 @@ data:
     THEME_SITEURL = "https://master.k8s.infnct"
     THEME_TWITTERHANDLE = ""
     THEME_LOGO = "img/LOGO_INFN_OAR_W.png"
+    THEME_GOOGLE_ANALYTICS_ID = "YOURGOOGLEID"
     #Account configurations
     SECURITY_CHANGEABLE = False
     SECURITY_RECOVERABLE = False
