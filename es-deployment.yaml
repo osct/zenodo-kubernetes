@@ -16,7 +16,7 @@ spec:
   clusterIP: None
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: zenodo-es
   labels:
@@ -26,14 +26,17 @@ spec:
     matchLabels:
       app: zenodo
       tier: es
-  strategy:
-    type: Recreate
+  serviceName: zenodo-es
   template:
     metadata:
       labels:
         app: zenodo
         tier: es
     spec:
+      volumes:
+        - name: es-pv-storage
+          persistentVolumeClaim:
+            claimName: zenodo-es-pv-claim
       containers:
       - name: es
         image: elasticsearch:2.3
@@ -42,3 +45,6 @@ spec:
         - containerPort: 9300
         command: ["/bin/sh"]
         args: ["-c", "plugin install royrusso/elasticsearch-HQ/v2.0.3; plugin install mapper-attachments; /docker-entrypoint.sh elasticsearch"]
+        volumeMounts:
+        - name: es-pv-storage
+          mountPath: /usr/share/elasticsearch/data

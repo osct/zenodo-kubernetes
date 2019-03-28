@@ -1,6 +1,40 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
+  name: zenodo-es-pv-volume
+  labels:
+    type: nfs
+spec:
+  storageClassName: remote
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /var/nfsshare/elasticsearch
+    server: 10.250.27.253
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: zenodo-es-pv-claim
+  labels:
+    type: es-storage
+spec:
+  storageClassName: remote
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
   name: zenodo-postgres-pv-volume
   labels:
     type: nfs
