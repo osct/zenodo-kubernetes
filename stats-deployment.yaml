@@ -1,0 +1,25 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: zenodo-stats
+  labels:
+    app: zenodo
+spec:
+  schedule: "0 */4 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: zenodo-stats
+            image: infnct/zenodo
+            command: ["/bin/sh"]
+            args: ["-c", "source /opt/zenodo_venv/bin/activate; zenodo stats events process; zenodo stats aggregations process; zenodo stats update-records; zenodo index run"]
+            volumeMounts:
+              - name: zenodo-config-file
+                mountPath: /opt/zenodo_venv/var/instance
+          volumes:
+            - name: zenodo-config-file
+              configMap:
+                name: zenodo-config
+          restartPolicy: OnFailure
