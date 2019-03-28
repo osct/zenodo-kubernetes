@@ -4,6 +4,9 @@ metadata:
   name: zenodo-config
 data:
   invenio.cfg: |
+    from invenio_github.config import GITHUB_REMOTE_APP
+    #Global configurations
+    APP_ALLOWED_HOSTS = ["your.open.access.repository.domain"]
     #Endpoint configurations
     ACCOUNTS_SESSION_REDIS_URL = "redis://zenodo-redis:6379/2"
     BROKER_URL = "amqp://USER:PASSWORD@zenodo-mq:5672//"
@@ -32,14 +35,16 @@ data:
     THEME_SITEURL = "https://your.open.access.repository.domain"
     THEME_TWITTERHANDLE = ""
     THEME_LOGO = "img/yourlogo.png"
-    ZENODO_RECORDS_UI_LINKS_FORMAT = "https://your.open.access.repository.domain/record/{recid}"
     THEME_GOOGLE_ANALYTICS_ID = "YOURGOOGLEID"
+    THEME_DOI_EXAMPLE = '10.your.doi/your.doi.suffix/21260'
+    ZENODO_RECORDS_UI_LINKS_FORMAT = "https://your.open.access.repository.domain/record/{recid}"
     #Account configurations
     SECURITY_CHANGEABLE = False
     SECURITY_RECOVERABLE = False
     SECURITY_REGISTERABLE = False
     SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
     SECURITY_EMAIL_SENDER = "librarian@your.open.access.repository"
+    SECURITY_EMAIL_SUBJECT_REGISTER = "Welcome to %s!"%THEME_SITENAME
     #Mail configurations
     MAIL_SERVER = "SERVER"
     MAIL_PORT = PORT
@@ -61,7 +66,7 @@ data:
     DATACITE_UPDATING_RATE_PER_HOUR = 1000
     DATACITE_MAX_DESCRIPTION_SIZE = 20000
     DEPOSIT_DATACITE_MINTING_ENABLED = True
-     #GitHub configurations
+    #GitHub configurations
     GITHUB_WEBHOOK_RECEIVER_URL = 'https://your.open.access.repository.domain/api/hooks/receivers/github/events/?access_token={token}'
     SIPSTORE_BAGIT_TAGS = [
         ('Source-Organization', 'Your organisation name'),
