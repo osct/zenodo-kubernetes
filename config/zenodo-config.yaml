@@ -83,8 +83,13 @@ data:
     ))
     GITHUB_REMOTE_APP['params']['request_token_params']['scope'] = 'user:email,admin:repo_hook,read:org'
     GITHUB_APP_CREDENTIALS = dict(
-        consumer_key="858ecb35622c77576a4b",
-        consumer_secret="7ffe0bc0f4c0b28746e04f4b2c70d048ff2ddf0a",
+        consumer_key="YOUR-KEY",
+        consumer_secret="YOUR-SECRET",
+    )
+    #ORCID configurations
+    ORCID_APP_CREDENTIALS = dict(
+        consumer_key="YOUR-KEY",
+        consumer_secret="YOUR-SECRET",
     )
     #Stats configurations
     ZENODO_STATS_PIWIK_EXPORT_ENABLED = False
