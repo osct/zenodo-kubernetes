@@ -1,0 +1,25 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: zenodo-grants
+  labels:
+    app: zenodo
+spec:
+  schedule: "0 23 2 * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: zenodo-grants
+            image: infnct/zenodo
+            command: ["/bin/sh"]
+            args: ["-c", "source /opt/zenodo_venv/bin/activate; zenodo loadgrants -A"]
+            volumeMounts:
+              - name: zenodo-config-file
+                mountPath: /opt/zenodo_venv/var/instance
+          volumes:
+            - name: zenodo-config-file
+              configMap:
+                name: zenodo-config
+          restartPolicy: OnFailure

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: zenodo-worker
+  name: zenodo-worker-low-index
   labels:
     app: zenodo
 spec:
@@ -15,7 +15,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zenodo-worker
+  name: zenodo-worker-low-index
   labels:
     app: zenodo
 spec:
@@ -44,7 +44,7 @@ spec:
         ports:
         - containerPort: 5601
         command: ["/bin/sh"]
-        args: ["-c", "source /opt/zenodo_venv/bin/activate; celery worker -A zenodo.celery -B --loglevel=INFO"]
+        args: ["-c", "source /opt/zenodo_venv/bin/activate; celery worker -A zenodo.celery -B -Q low,celery-indexer --loglevel=INFO"]
       volumes:
       - name: zenodo-archive-storage
         persistentVolumeClaim:
