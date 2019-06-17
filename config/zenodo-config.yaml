@@ -93,6 +93,8 @@ data:
     )
     #Stats configurations
     ZENODO_STATS_PIWIK_EXPORT_ENABLED = False
+    #OAI configurations
+    OAISERVER_ADMIN_EMAILS = ["librarian@your.open.access.repository.domain"]
     #Support configurations
     SUPPORT_EMAIL = "librarian@your.open.access.repository.domain"
     SUPPORT_SUPPORT_EMAIL = ["librarian@your.open.access.repository.domain"]
