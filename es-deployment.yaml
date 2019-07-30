@@ -43,6 +43,9 @@ spec:
         ports:
         - containerPort: 9200
         - containerPort: 9300
+        env:
+        - name: ES_JAVA_OPTS
+          value: "-Xms2g -Xmx2g"
         command: ["/bin/sh"]
         args: ["-c", "plugin install royrusso/elasticsearch-HQ/v2.0.3; plugin install mapper-attachments; /docker-entrypoint.sh elasticsearch"]
         volumeMounts:
