@@ -14,7 +14,7 @@ spec:
           - name: zenodo-grants
             image: infnct/zenodo
             command: ["/bin/sh"]
-            args: ["-c", "source /opt/zenodo_venv/bin/activate; zenodo loadgrants -A"]
+            args: ["-c", "source /opt/zenodo_venv/bin/activate; zenodo openaire loadgrants -A"]
             volumeMounts:
               - name: zenodo-config-file
                 mountPath: /opt/zenodo_venv/var/instance

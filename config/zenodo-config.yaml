@@ -95,6 +95,21 @@ data:
     ZENODO_STATS_PIWIK_EXPORT_ENABLED = False
     #OAI configurations
     OAISERVER_ADMIN_EMAILS = ["librarian@your.open.access.repository.domain"]
+    #Redirect configurations
+    REDIRECTOR_EXTERNAL_REDIRECTS = [
+        ['/dev', 'dev', 'http://developers.zenodo.org'],
+        ['/faq', 'faq', 'http://help.zenodo.org'],
+        ['/features', 'features', 'http://help.zenodo.org/features/'],
+        ['/whatsnew', 'whatsnew', 'http://help.zenodo.org/whatsnew/'],
+        ['/about', 'about', '/help/about'],
+        ['/contact', 'contact', '/help/contact/'],
+        ['/policies', 'policies', '/help/policies/'],
+        ['/privacy-policy', 'privacy-policy',
+         '/help/privacy-policy/'],
+        ['/terms', 'terms', '/help/terms-of-use/'],
+        ['/donate', 'donate', 'https://giving.web.cern.ch/civicrm/contribute/'
+                              'transact%3Freset%3D1%26id%3D20'],
+    ]
     #Support configurations
     SUPPORT_EMAIL = "librarian@your.open.access.repository.domain"
     SUPPORT_SUPPORT_EMAIL = ["librarian@your.open.access.repository.domain"]
