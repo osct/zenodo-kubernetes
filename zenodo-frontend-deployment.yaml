@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: infnct/zenodo:1.0.4
+        image: infnct/zenodo:1.0.5
         volumeMounts:
         - name: zenodo-archive-storage
           mountPath: /opt/zenodo_venv/var/instance/archive
