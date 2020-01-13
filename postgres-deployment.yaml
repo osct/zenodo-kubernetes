@@ -50,6 +50,9 @@ spec:
               secretKeyRef:
                 name: zenodo-secrets
                 key: password
+        resources:
+          requests:
+            memory: "4Gi"
         volumeMounts:
         - name: db-pv-storage
           mountPath: /var/lib/postgresql/data
