@@ -1,0 +1,36 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: postgres-dump
+  labels:
+    app: zenodo
+spec:
+  schedule: "0 1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+            - name: backup-pv-volume
+              persistentVolumeClaim:
+                claimName: backup-pv-claim
+          containers:
+          - name: postgres-dump
+            image: postgres
+            command: ["/bin/sh"]
+            args: ["-c", "export PGPASSWORD=$POSTGRES_PASSWORD; pg_dumpall -h zenodo-postgres -U $POSTGRES_USER | gzip > /var/backup/pg_backup_`date +%F_%H-%M`.gz"]
+            env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: zenodo-secrets
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zenodo-secrets
+                  key: password
+            volumeMounts:
+            - name: backup-pv-volume
+              mountPath: /var/backup
+          restartPolicy: OnFailure

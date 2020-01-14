@@ -167,3 +167,37 @@ spec:
   resources:
     requests:
       storage: 800Gi
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: backup-pv-volume
+  labels:
+    type: nfs
+spec:
+  storageClassName: remote
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /var/nfsshare/backup
+    server: 10.250.27.253
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: backup-pv-claim
+  labels:
+    type: backup-storage
+spec:
+  storageClassName: remote
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
