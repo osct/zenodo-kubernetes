@@ -63,7 +63,7 @@ spec:
         - name: zenodo-html-files
           mountPath: /var/www/html
         ports:
-        - containerPort: 5601
+        - containerPort: 443
       volumes:
       - name: zenodo-archive-storage
         persistentVolumeClaim:
