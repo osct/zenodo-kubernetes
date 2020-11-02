@@ -55,6 +55,7 @@ data:
     MAIL_SUPPRESS_SEND = False
     ZENODO_ADMIN_EMAIL = "librarian@oyour.open.access.repository.domain"
     COMMUNITIES_REQUEST_EMAIL_SENDER = "librarian@your.open.access.repository.domain"
+    ZENODO_SYSTEM_SENDER_EMAIL = "system@your.open.access.repository.domain"
     #DataCite configurations
     ZENODO_LOCAL_DOI_PREFIXES = ["10.your.doi"]
     PIDSTORE_DATACITE_URL = "https://mds.datacite.org"
