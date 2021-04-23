@@ -45,12 +45,12 @@ spec:
         - containerPort: 9300
         env:
         - name: ES_JAVA_OPTS
-          value: "-Xms2g -Xmx2g"
+          value: "-Xms4g -Xmx4g"
         command: ["/bin/sh"]
         args: ["-c", "plugin install royrusso/elasticsearch-HQ/v2.0.3; plugin install mapper-attachments; /docker-entrypoint.sh elasticsearch"]
         resources:
           requests:
-            memory: "2.4Gi"
+            memory: "6Gi"
         volumeMounts:
         - name: es-pv-storage
           mountPath: /usr/share/elasticsearch/data
