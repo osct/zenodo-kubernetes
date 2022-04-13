@@ -44,10 +44,10 @@ spec:
         image: infnct/zenodo:1.0.11
         resources:
           requests:
-            memory: "4Gi"
+            memory: "8Gi"
             ephemeral-storage: "4Gi"
           limits:
-            memory: "4Gi"
+            memory: "8Gi"
             ephemeral-storage: "4Gi"
         volumeMounts:
         - name: zenodo-archive-storage
