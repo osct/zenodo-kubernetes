@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: infnct/zenodo:1.0.12
+        image: baltig.infn.it:4567/infnct/dev/zenodo/infnct/zenodo:1.0.12
         resources:
           requests:
             memory: "8Gi"

@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: worker
-        image: infnct/zenodo:1.0.12
+        image: baltig.infn.it:4567/infnct/dev/zenodo/infnct/zenodo:1.0.12
         volumeMounts:
         - name: zenodo-archive-storage
           mountPath: /opt/zenodo_venv/var/instance/archive
